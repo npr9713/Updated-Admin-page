@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fault and Spare Request Sheet</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        background-color: cyan;
+        color: #fff;
+        padding: 1em;
+        text-align: center;
+      }
+
+      #sheet {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+      }
+
+      form {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      label {
+        margin-bottom: 10px;
+      }
+
+      input,
+      select,
+      button {
+        margin-bottom: 10px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+
+      table,
+      th,
+      td {
+        border: 1px solid #ddd;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #333;
+        color: #fff;
+      }
+
+      canvas {
+        margin-top: 20px;
+      }
+
+      /* Styling for the charts */
+      #chart-container {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #pie-chart,
+      #line-chart {
+        flex: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Fault and Spare Request Sheet</h1>
+    </header>
+
+    <div id="sheet">
+      <form id="requestForm">
+        <label for="station">Station:</label>
+        <select id="station" name="station">
+          <option value="SWD">SWD</option>
+          <option value="SWN">SWN</option>
+          <option value="STV">STV</option>
+          <option value="STT">STT</option>
+        </select>
+        <label for="device">Device:</label>
+        <input type="text" id="device" name="device" required />
+        <label for="deviceNumber">Device Number:</label>
+        <input type="text" id="deviceNumber" name="deviceNumber" required />
+        <label for="faultDescription">Fault Description:</label>
+        <input
+          type="text"
+          id="faultDescription"
+          name="faultDescription"
+          required
+        />
+        <label for="faultAckNumber">Fault Ack Number:</label>
+        <input type="text" id="faultAckNumber" name="faultAckNumber" required />
+        <button type="button" onclick="submitRequest()">Submit Request</button>
+      </form>
+
+      <table id="requestTable">
+        <thead>
+          <tr>
+            <th>Serial Number</th>
+            <th>Station</th>
+            <th>Device</th>
+            <th>Device Number</th>
+            <th>Fault Description</th>
+            <th>Fault Ack Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows for displaying requests will go here -->
+        </tbody>
+      </table>
+
+      <div id="chart-container">
+        <canvas id="pie-chart" width="200" height="200"></canvas>
+        <canvas id="line-chart" width="400" height="200"></canvas>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      var pieChart;
+      var lineChart;
+
+      function generateSerialNumber() {
+        var table = document.getElementById("requestTable");
+        return table.rows.length + 1;
+      }
+
+      function submitRequest() {
+        var station = document.getElementById("station").value;
+        var device = document.getElementById("device").value;
+        var deviceNumber = document.getElementById("deviceNumber").value;
+        var faultDescription =
+          document.getElementById("faultDescription").value;
+        var faultAckNumber = document.getElementById("faultAckNumber").value;
+
+        // Generate a serial number
+        var serialNumber = generateSerialNumber();
+
+        // Create a new row in the table with the submitted data
+        var table = document
+          .getElementById("requestTable")
+          .getElementsByTagName("tbody")[0];
+        var newRow = table.insertRow(table.rows.length);
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+        var cell5 = newRow.insertCell(4);
+        var cell6 = newRow.insertCell(5);
+
+        cell1.innerHTML = serialNumber;
+        cell2.innerHTML = station;
+        cell3.innerHTML = device;
+        cell4.innerHTML = deviceNumber;
+        cell5.innerHTML = faultDescription;
+        cell6.innerHTML = faultAckNumber;
+
+        // Update charts
+        updateCharts();
+
+        // Clear the form fields after submission
+        document.getElementById("requestForm").reset();
+      }
+
+      function updateCharts() {
+        updatePieChart();
+        updateLineChart();
+      }
+
+      function updatePieChart() {
+        var labels = ["SWD", "SWN", "STV", "STT"];
+        var data = [0, 0, 0, 0];
+
+        var table = document
+          .getElementById("requestTable")
+          .getElementsByTagName("tbody")[0];
+        for (var i = 0; i < table.rows.length; i++) {
+          var station = table.rows[i].cells[1].innerHTML;
+          switch (station) {
+            case "SWD":
+              data[0]++;
+              break;
+            case "SWN":
+              data[1]++;
+              break;
+            case "STV":
+              data[2]++;
+              break;
+            case "STT":
+              data[3]++;
+              break;
+          }
+        }
+
+        if (pieChart) {
+          pieChart.destroy(); // Destroy existing chart instance
+        }
+
+        var ctx = document.getElementById("pie-chart").getContext("2d");
+        pieChart = new Chart(ctx, {
+          type: "pie",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                data: data,
+                backgroundColor: [
+                  "rgba(255, 99, 132, 0.8)",
+                  "rgba(54, 162, 235, 0.8)",
+                  "rgba(255, 206, 86, 0.8)",
+                  "rgba(75, 192, 192, 0.8)",
+                ],
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+
+      function updateLineChart() {
+        var labels = [];
+        var data = [];
+
+        var table = document
+          .getElementById("requestTable")
+          .getElementsByTagName("tbody")[0];
+        for (var i = 0; i < table.rows.length; i++) {
+          labels.push(table.rows[i].cells[1].innerHTML); // Station
+          data.push(table.rows[i].cells[4].innerHTML.length); // Fault Description length
+        }
+
+        if (lineChart) {
+          lineChart.destroy(); // Destroy existing chart instance
+        }
+
+        var ctx = document.getElementById("line-chart").getContext("2d");
+        lineChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: "Fault Description Length",
+                data: data,
+                borderColor: "rgba(75, 192, 192, 1)",
+                borderWidth: 1,
+                fill: false,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          },
+        });
+      }
+    </script>
+  </body>
+</html>

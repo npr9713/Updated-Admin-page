@@ -1,0 +1,47 @@
+<!-- createRequest.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Request</title>
+    <script src="./js/request.js"></script>
+    <link rel="stylesheet" href="./css/zoneje.css" />
+  </head>
+  <body>
+    <header>
+      <div class="img-container">
+        <img src="./logos/Chennai_Metro_logo.svg.jpg" alt="Your Logo" />
+      </div>
+      <div class="title-container"><h1>CMRL FAULT REQUEST</h1></div>
+    </header>
+    <div id="navigation">
+      <a href="request.html">Create Request</a>
+      <a href="view.html">View Request</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+    <form id="requestForm">
+      <label for="station">Station:</label>
+      <select id="station" name="station">
+        <option value="SWD">SWD</option>
+        <option value="SWN">SWN</option>
+        <option value="STV">STV</option>
+        <option value="STT">STT</option>
+      </select>
+      <label for="device">Device:</label>
+      <input type="text" id="device" name="device" required />
+      <label for="deviceNumber">Device Number:</label>
+      <input type="text" id="deviceNumber" name="deviceNumber" required />
+      <label for="faultDescription">Fault Description:</label>
+      <input
+        type="text"
+        id="faultDescription"
+        name="faultDescription"
+        required
+      />
+      <label for="faultAckNumber">Fault Ack Number:</label>
+      <input type="text" id="faultAckNumber" name="faultAckNumber" required />
+      <button type="button" onclick="submitRequest()">Submit Request</button>
+    </form>
+  </body>
+</html>

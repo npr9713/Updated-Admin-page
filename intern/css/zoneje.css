@@ -1,0 +1,153 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(14, 100, 192);
+  color: #fff;
+  padding: 1em;
+  height: 50px;
+  text-align: center;
+}
+.title-container h1 {
+  margin: 0;
+}
+
+#navigation {
+  background-color: #333;
+  padding: 10px;
+  text-align: center;
+}
+
+#navigation a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
+
+#navigation a:hover {
+  background-color: #555;
+}
+.img-container {
+  background-color: white;
+}
+header img {
+  max-height: 50px; /* Adjust the height of your logo */
+}
+
+.title-container {
+  margin-right: 500px;
+}
+.nav1 {
+  margin-right: 300px;
+}
+#sheet {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+#chart-container {
+  margin-top: 20px;
+}
+
+/* Add a media query for responsive design */
+@media screen and (max-width: 768px) {
+  header img {
+    display: none;
+  }
+
+  #sheet {
+    margin-top: 0; /* Remove the top margin when the sidebar is visible */
+  }
+
+  /* Adjust the sidebar styles to make it overlay on top of the content */
+}
+
+#sheet {
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+form {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+  border: 1px solid #0f0202;
+  border-radius: 4px;
+}
+
+label {
+  margin-bottom: 10px;
+}
+
+input,
+select,
+button {
+  margin-bottom: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #333;
+  color: #fff;
+}
+
+canvas {
+  margin-top: 20px;
+}
+
+/* Styling for the charts */
+#chart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#pie-chart,
+#line-chart {
+  flex: 1;
+}

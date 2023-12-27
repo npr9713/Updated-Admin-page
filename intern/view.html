@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fault and Spare Request Sheet</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/zoneje.css" />
+    <script src="./js/zoneje.js"></script>
+  </head>
+  <body>
+    <header>
+      <!-- Wrap the logo in an anchor tag with href pointing to your first page -->
+      <a href="zoneje.html" class="img-container">
+        <img src="Chennai_Metro_logo.svg.jpg" alt="Your Logo" />
+      </a>
+      <div class="title-container">
+        <h1>VIEW SHEET</h1>
+      </div>
+    </header>
+    <div id="navigation">
+      <a href="view.html">View Request</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+
+    <div id="sheet">
+      <table id="requestTable">
+        <thead>
+          <tr>
+            <th>Serial Number</th>
+            <th>Date and Time</th>
+            <th>Station</th>
+            <th>Device</th>
+            <th>Device Number</th>
+            <th>Fault Description</th>
+            <th>Fault Ack Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows for displaying requests will go here -->
+        </tbody>
+      </table>
+
+      <div id="chart-container">
+        <canvas id="pie-chart" width="200" height="200"></canvas>
+      </div>
+    </div>
+  </body>
+</html>

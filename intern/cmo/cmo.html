@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fault and Spare Request Sheet</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/cmo.css" />
+    <script src="./js/cmo.js"></script>
+    <style>
+      /* Add styles for the overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        display: none; /* Initially hide the overlay */
+      }
+      .spinner {
+        width: 50px; /* Adjust the width of your spinner */
+        height: 50px; /* Adjust the height of your spinner */
+        background: url("icons8-spinner.gif") center center no-repeat;
+        background-size: cover;
+      }
+      #logout-container {
+        text-align: center;
+        margin-top: 40px;
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #logout-button {
+        padding: 80px 80px;
+        font-size: 100px;
+        background-color: #2688ca; /* Blue color */
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #logout-button:hover {
+        background-color: #2980b9; /* Darker blue color on hover */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" id="overlay">
+      <!-- Add a spinner or loader here -->
+      <div class="spinner"></div>
+    </div>
+    <div id="logout-container">
+      <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+      // Function to handle logout
+      function logout() {
+        // Redirect to login.html
+        window.location.href = "login.html";
+      }
+    </script>
+    <header>
+      <div class="img-container">
+        <img src="Chennai_Metro_logo.svg.jpg" alt="Your Logo" />
+      </div>
+      <div class="title-container"><h1>ADMIN</h1></div>
+    </header>
+    <div id="navigation">
+      <a href="request.html">Create Request</a>
+      <a href="view.html">View Request</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="add_employee.html">Add Employee</a>
+    </div>
+
+    <div id="sheet">
+      <form id="requestForm">
+        <label for="station">Station:</label>
+        <select id="station" name="station">
+          <option value="SWD">SWD</option>
+          <option value="SWN">SWN</option>
+          <option value="STV">STV</option>
+          <option value="STT">STT</option>
+        </select>
+        <label for="device">Device:</label>
+        <input type="text" id="device" name="device" required />
+        <label for="deviceNumber">Device Number:</label>
+        <input type="text" id="deviceNumber" name="deviceNumber" required />
+        <label for="faultDescription">Fault Description:</label>
+        <input
+          type="text"
+          id="faultDescription"
+          name="faultDescription"
+          required
+        />
+        <label for="faultAckNumber">Fault Ack Number:</label>
+        <input type="text" id="faultAckNumber" name="faultAckNumber" required />
+        <button type="button" onclick="submitRequest()">Submit Request</button>
+      </form>
+
+      <table id="requestTable">
+        <thead>
+          <tr>
+            <th>Serial Number</th>
+            <th>Date and Time</th>
+            <th>Station</th>
+            <th>Device</th>
+            <th>Device Number</th>
+            <th>Fault Description</th>
+            <th>Fault Ack Number</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows for displaying requests will go here -->
+        </tbody>
+      </table>
+
+      <div id="chart-container" style="width: 50px; height: 50px">
+        <canvas id="pie-chart"></canvas>
+      </div>
+    </div>
+  </body>
+</html>

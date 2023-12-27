@@ -1,0 +1,86 @@
+<!-- createRequest.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Request</title>
+    <script src="./js/view.js"></script>
+    <link rel="stylesheet" href="./css/cmo.css">
+    <style>
+      /* Add styles for the overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        display: none; /* Initially hide the overlay */
+      }
+
+      /* Customize the spinner appearance */
+      .spinner {
+        width: 50px; /* Adjust the width of your spinner */
+        height: 50px; /* Adjust the height of your spinner */
+        background: url("icons8-spinner.gif") center center no-repeat;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" id="overlay">
+      <!-- Add your spinner GIF here -->
+      <div class="spinner"></div>
+    </div>
+    <header>
+        <div class="img-container"><img src="Chennai_Metro_logo.svg.jpg" alt="Your Logo" /></div>
+        <div class="title-container"><h1>ADMIN</h1></div>
+    </header>
+      <div id="navigation">
+        <a href="request.html">Create Request</a>
+        <a href="view.html">View Request</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="add_employee.html">Add Employee</a>
+      </div>
+      <label for="stationFilter">Filter by Station:</label>
+      <select id="stationFilter" onchange="filterRequests()">
+        <option value="">All Stations</option>
+        <option value="SWD">SWD</option>
+        <option value="SWN">SWN</option>
+        <option value="STT">STT</option>
+    
+        
+      </select>
+      <table id="requestTable">
+        <thead>
+          <tr>
+         
+            <th>Serial Number</th>
+            <th>Date and Time</th>
+            <th>Station</th>
+            <th>Device</th>
+            <th>Device Number</th>
+            <th>Fault Description</th>
+            <th>Fault Ack Number</th>
+                      <th>Status</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Table rows for displaying requests will go here -->
+        </tbody>
+      </table>
+      <!-- Add the Clear button after the table -->
+<button id="clearButton" onclick="clearRequests()">Clear Requests</button>
+
+
+     
+    </div>
+   
+  </body>
+</html>
